@@ -1,0 +1,25 @@
+// Online C compiler to run C program online
+#include <stdio.h>
+int sum=0,temp;
+int reverse(int x){
+    
+    if(x){
+        temp=x%10;
+        sum=sum*10+temp;
+        reverse(x/10);
+    }
+    else
+        return sum;
+    return sum;
+}
+int main() {
+    int n;
+    scanf("%d",&n);
+    int flag=reverse(n);
+    if(n==flag){
+        printf("palindrom");
+    }
+    else
+        printf("not palindrom");
+    return 0;
+}
