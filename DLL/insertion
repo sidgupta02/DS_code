@@ -1,0 +1,76 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node{
+	int data;
+	struct node* next;
+	struct node* prev;
+}* head;
+//insertion from beginning
+struct node* insert(int data){
+	struct node* temp=(struct node*)malloc(sizeof(struct node));
+	temp->next=head;
+	temp->data=data;
+	temp->prev=NULL;
+	if(head != NULL){
+		head->prev=temp;
+	}
+	head=temp; 	
+}
+//insertion from ending
+void end_insertion(int x){
+	struct node* temp=(struct node*)malloc(sizeof(struct node));
+	temp->data=x;
+	temp->next=NULL;
+	temp->prev=NULL;
+	struct node* t=head;
+	if(t==NULL){
+		head=temp;
+		return ;
+	}
+	while(t->next != NULL){
+		t=t->next;
+	}
+	t->next=temp;
+	temp->prev=t;
+	return ;
+}
+void print(){
+	struct node* temp=head;
+	printf("list is : ");
+	while(temp != NULL){
+		printf("%d ",temp->data);
+		temp=temp->next;
+	}
+	printf("\n");
+}
+void printlist(){
+	struct node* last=(struct node*)malloc(sizeof(struct node));
+	printf("\nTraversal in forward direction \n");
+	while(head != NULL){
+		printf("%d ",head->data);
+		last=head;
+		head=head->next;
+	}
+	printf("\n");
+	printf("\nTraversal in reverse direction \n");
+	while(last != NULL){
+		printf("%d ",last->data);
+		last=last->prev;
+	}
+	printf("\n");
+}
+int main(){
+	head=NULL;
+	
+	insert(5);
+	insert(6);
+	insert(7);
+	insert(8);
+	end_insertion(1);
+	end_insertion(2);
+	end_insertion(3);
+	end_insertion(4);
+	print();
+	printlist();
+}
