@@ -1,0 +1,18 @@
+#include <bits/stdc++.h> 
+
+using namespace std;
+
+bool ans(string s,int i,int j){
+    if(i==j)return true;
+    if(s[i]!=s[j])return false;
+    else return ans(s,++i,--j);
+}
+
+int main() {
+    string str="addahadda";
+    //int i=0;int j=str.length()-1;
+    bool a=ans(str,0,str.length()-1);
+    if(a) cout<<"palindrome";
+    else cout<<"not palindrome";
+    return 0;
+}
