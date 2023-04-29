@@ -1,0 +1,23 @@
+#include <iostream>
+
+using namespace std;
+
+bool check(int arr[],int size,int n){
+    if(size==0)return false;
+    if(arr[0] = n) return true;
+    else{
+        check(arr+1,size-1,n);
+    }
+    return true;
+}
+
+int main() {
+    int arr[] = {1, 2, 3, 4, 5, 6};
+    int size = sizeof(arr) / sizeof(arr[0]);
+    int target=5;
+    bool ans=check(arr,size,target);
+    if(ans) cout<<"target found";
+    else cout<<"not found";
+
+    return 0;
+}
