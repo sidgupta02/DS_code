@@ -1,0 +1,64 @@
+#include<iostream>
+#include<cstdlib>
+using namespace std;
+
+void myMerge(int *arr, int i, int j){
+    int mid = (i+j)/2;
+    int l1 = mid-i+1;
+    int l2 = j-mid;
+    
+    //creating new arrays
+    int *a = new int[l1];
+    int *b = new int[l2];
+    
+    int k=i;
+    for(int x=0;x<l1;x++){
+        a[x]=arr[k++];
+    }
+    for(int x=0;x<l2;x++){
+        b[x]=arr[k++];
+    }
+    int k1=0;
+    int k2=0;
+    k=i;
+    while(k1<l1 && k2<l2){
+        if(a[k1] < b[k2]){
+            arr[k++]=a[k1++];
+        }
+        else {
+            arr[k++]=b[k2++];
+        }
+    }
+    
+    while(k1<l1){
+        arr[k++]=a[k1++];
+    }
+    
+    while(k2<l2){
+        arr[k++]=b[k2++];
+    }
+    
+    delete[] a;
+    delete[] b;
+    
+}
+
+void mergeSort(int *arr, int i, int j){
+    if (i >= j) {
+        return;
+    }
+    int mid = (i+j)/2;
+    mergeSort(arr, i, mid);
+    mergeSort(arr, mid+1, j);
+    myMerge(arr, i, j);
+}
+
+int main(){
+    int arr[]={9, 87, 6, 7, 45, 33, 23, 23, 56};
+    int n=sizeof(arr)/sizeof(arr[0]);
+    mergeSort(arr,0,n-1);
+    for(int i=0;i<n;i++){
+        cout<<arr[i]<<" ";
+    }
+    return 0;
+}
