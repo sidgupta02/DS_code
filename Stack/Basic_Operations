@@ -1,0 +1,25 @@
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main()
+{
+    //create stack
+    stack<int> s ;
+    //push elements
+    s.push(5);
+    s.push(2);
+    s.push(4);
+    s.push(9);
+    //pop elements
+    s.pop();
+    //veiw top elements
+    cout<<s.top()<<endl;
+    if(s.empty()){
+        cout<<"stack is empty"<<endl;
+    }
+    else cout<<"stack is not empty"<<endl;
+    cout<<s.size();
+    return 0;
+}
