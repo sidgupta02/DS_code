@@ -1,0 +1,91 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+class node{
+    public:
+        int data;
+        node* link;
+        
+        //constructor
+        node(int n){
+            this->data=n;
+            this->link=NULL;
+        }
+};
+
+class Stack {
+    node *top;
+public:
+    Stack() {
+        top=NULL;
+        
+    };
+
+    void push(int data) {
+        node *temp=new node(data);
+        if(!temp){
+            cout<<"\nStack Overflow";
+            exit(1);
+        }
+        temp->data=data;
+        temp->link=top;
+        top=temp;
+    }
+
+    void pop() {
+        node* temp;
+        if(top==NULL){
+            cout<<"\n Stack Underflow";
+            exit(1);
+        }
+        else{
+            temp=top;
+            top=top->link;
+            free(temp);
+        }
+    }
+    
+    int isEmpty(){
+        return top == NULL;
+    }
+    
+    int peek() {
+        if(!isEmpty()) return top->data;
+        else exit(1);
+    }
+    
+    void display(){
+        //to display all nodes of linklist 
+        node* temp;
+        if(top == NULL){
+            cout<<"\nStack UNderflow";
+            exit(1);
+        }
+        else{
+            temp=top;
+            while(temp!=NULL){
+                cout<<temp->data;
+                temp=temp->link;
+                if(temp != NULL) cout<<"->";
+            }
+        }
+    }
+    
+};
+
+int main() {
+    Stack st;
+    st.push(22);
+    st.push(43);
+    st.push(44);
+    st.display();
+    cout<<"\nTop element is "<<st.peek()<<endl;
+    
+    st.pop();
+    st.pop();
+    st.display();
+    cout<<"\nTop element is "<<st.peek()<<endl;
+    
+    return 0;
+}
