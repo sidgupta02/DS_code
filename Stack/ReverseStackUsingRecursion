@@ -1,0 +1,22 @@
+void dalo(stack<int> &stack,int n){
+    if(stack.empty()){
+        stack.push(n);
+        return;
+    }
+    int num=stack.top();
+    stack.pop();
+    dalo(stack, n);
+    stack.push(num);
+}
+void reverseStack(stack<int> &stack) {
+    //base
+    if(stack.empty()){
+        return;
+    }
+
+    int n=stack.top();
+    stack.pop();
+    reverseStack(stack);
+    dalo(stack,n);
+
+}
