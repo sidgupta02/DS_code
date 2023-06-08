@@ -1,0 +1,36 @@
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main()
+{
+    int arr[7]={2,3,6,6,9,5,7};
+    int m=*min_element(arr,arr+7);
+    cout<<"min = "<<m<<endl;
+    
+    vector<int> v={2,3,6,6,9,5,7};
+    int min=*min_element(v.begin(),v.end());
+    cout<<"min = "<<min<<endl;
+    int max=*max_element(v.begin(),v.end());
+    cout<<"max = "<<max<<endl;
+    
+    //accumulate or sum
+    int sum=accumulate(v.begin(),v.end(),0);
+    cout<<"sum = "<<sum<<endl;
+    
+    int c=count(v.begin(),v.end(),6);
+    cout<<"no. of 6= "<<c<<endl;
+    
+    auto f=find(v.begin(),v.end(),7);
+    if(f == v.end()) cout<<"NOt Found "<<endl;
+    else cout<<"Found "<<endl;
+    
+    reverse(v.begin(),v.end());
+    for(auto i:v){
+        cout<<i<<" ";
+    }
+    cout<<endl;
+    
+    return 0;
+}
