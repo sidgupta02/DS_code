@@ -32,5 +32,30 @@ int main()
     }
     cout<<endl;
     
+    
+    ///////lambda function. //////
+    
+    
+    auto p1=[](int x, int y){return x+y;};
+    cout<<"applying lambda function and the sum of 2 and 3 is  :"<<p1(2,3)<<endl;
+    cout<<"applying lambda function and the sum of 6 and 3 is  :"<<p1(6,3)<<endl;
+    cout<<"applying lambda function and the sum of 7 and 3 is  :"<<p1(7,3)<<endl;
+    cout<<"applying lambda function and the sum of 8 and 3 is  :"<<p1(8,3)<<endl;
+    
+    
+    
+    //////////
+    //return false if any element is negative 
+    //in a given aaray
+    cout<<all_of(v.begin(),v.end(),[](int x){return x>0 ;})<<endl;//all_of is for all element must satisfy same condition and it returns boolean 
+    
+    cout<<all_of(v.begin(),v.end(),[](int x){return x%2==0 ;})<<endl;//all_of is for all element must satisfy same condition and it returns boolean 
+
+/////all_of is for any  element mof  given vector must satisfy same condition and it returns boolean 
+vector<int >v5={3,5,7,9};
+cout<<" alteast one element is even : "<<any_of(v5.begin(),v5.end(),[](int x){return x%2==0 ;})<<endl;
+cout<<" any element is odd : "<<any_of(v5.begin(),v5.end(),[](int x){return x%2!=0 ;})<<endl;
+cout<<" none element is even : "<<none_of(v5.begin(),v5.end(),[](int x){return x%2!=0 ;})<<endl;
+    
     return 0;
 }
