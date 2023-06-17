@@ -1,0 +1,22 @@
+int lenOfLongSubarr(int A[],  int N, int K) 
+    { 
+        //unordered_map<int> um;
+        int i=0;int x=0;
+        int ans=0;
+        bool c=false;
+        for(int j=0;j<N;j++){
+            while(ans>K){
+                ans=ans-A[i];
+                i++;
+            }
+            ans+=A[j];
+            //if(ans==K) 
+            if(ans==K){
+                c=true;
+                x=max(x,j-i+1);
+            }
+        }
+        if(c==true) return x;
+        return 0;
+        
+    } 
