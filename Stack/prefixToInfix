@@ -1,0 +1,21 @@
+string preToInfix(string ex) {
+        stack<string>st;
+        for(int i=ex.length()-1;i>=0;i--){
+            
+            if (isalpha(ex[i]) || isdigit(ex[i])) {
+                string str(1, ex[i]);
+                st.push(str);
+            }
+            
+            else{
+                string a=st.top();
+                st.pop();
+                string b=st.top();
+                st.pop();
+                
+                st.push(("("+a+ex[i]+b+")"));
+                
+            }
+        }
+        return st.top();
+    }
