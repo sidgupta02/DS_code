@@ -1,0 +1,23 @@
+string postToInfix(string exp) {
+         stack<string> st;
+        
+        for (int i = 0; i < exp.length(); i++) {
+            
+            if (isalpha(exp[i]) || isdigit(exp[i])) {
+                
+                string operand(1, exp[i]);
+                st.push(operand);
+                
+            } 
+            else {
+                string b = st.top();
+                st.pop();
+                string a = st.top();
+                st.pop();
+                
+                //string s = "(" + a + exp[i] + b + ")";
+                st.push(("(" + a + exp[i] + b + ")"));
+            }
+        }
+        return st.top();
+    }
