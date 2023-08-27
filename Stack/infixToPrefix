@@ -1,0 +1,52 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+int prec(char c){
+    if(c=='^')return 3;
+    else if(c=='/' || c=='*')return 2;
+    else if(c=='+' || c=='-') return 1;
+    else return -1;
+    
+}
+
+string infixToPrefix(string s){
+    reverse(s.begin(),s.end()); //note that ( -> ) and ) -> (
+    
+    stack<char>st;
+    string rev;
+    
+    for(int i=0;i<s.length();i++){
+        if(isalpha(s[i]) || s[i]>='0' && s[i]<='9') rev+=s[i];
+        else if(s[i]==')') st.push(s[i]);
+        else if(s[i]=='('){
+            while(!st.empty() && st.top()!=')'){
+                rev+=st.top();
+                st.pop();
+            }
+            st.pop();
+        }
+        else{
+            while(!st.empty() && prec(s[i])>=prec(st.top())){
+                rev+=st.top();
+                st.pop();
+                
+            }
+            st.push(s[i]);
+        }
+        
+    }
+    while(!st.empty()){
+        rev+=st.top();
+        st.pop();
+    }
+    
+    reverse(rev.begin(),rev.end());
+    return rev;
+}
+int main()
+{
+    string s="x+y*z/w+u";
+    cout<<infixToPrefix(s);
+
+    return 0;
+}
