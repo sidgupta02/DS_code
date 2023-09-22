@@ -51,8 +51,9 @@ int main()
     }
 
 
-///Best Time Complexity : O(nlogn)
+Best Time Complexity : O(nlogn)
 Average Time Complexity : O(nlogn)
+Worst Time Complexity : O(n^2)
 Worst Time Complexity : O(n^2)
 
     return 0;
