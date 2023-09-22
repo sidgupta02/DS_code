@@ -50,5 +50,10 @@ int main()
         printf("%d ",number[i]);
     }
 
+
+///Best Time Complexity : O(nlogn)
+Average Time Complexity : O(nlogn)
+Worst Time Complexity : O(n^2)
+
     return 0;
 }
