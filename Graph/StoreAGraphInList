@@ -1,0 +1,19 @@
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main()
+{
+    int n,m;
+    cin>>n>>m;
+    vector<int>adj[n+1];
+    for(int k=0;k<m;k++){
+        int i,j;
+        cin>>i>>j;
+        adj[i].push_back(j);
+        adj[j].push_back(i);
+    }
+
+    return 0;
+}
