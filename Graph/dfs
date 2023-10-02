@@ -1,0 +1,28 @@
+
+class Solution {
+    
+    private:
+        void dis(int node,vector<int>adj[],int vis[],vector<int>&ls){
+            vis[node]=1;
+            ls.push_back(node);
+            
+            //traverse all its neighbours
+            for(auto it: adj[node]){
+                if(!vis[it]){
+                    dis(it,adj,vis,ls);
+                }
+            }
+        }
+  public:
+    // Function to return a list containing the DFS traversal of the graph.
+    vector<int> dfsOfGraph(int n, vector<int> adj[]) {
+        int vis[n]={0};
+        int s=0;
+        vector<int> ls;
+        dis(s,adj,vis,ls);
+        return ls;
+    }
+};
+
+//space = o(n)
+//time = o(n+E)
