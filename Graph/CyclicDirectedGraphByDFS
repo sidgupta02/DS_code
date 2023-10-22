@@ -29,3 +29,37 @@ public:
         return false;
     }
 };
+
+
+
+//using n space
+
+
+@abhijeetkumar2970
+1 month ago
+Code using only single visited array:
+class Solution {
+    bool util(vector<int> adj[],int u,vector<int> &vis){
+        vis[u] = 1;
+        for(auto v:adj[u]){
+            if(vis[v] == -1){
+                if(util(adj,v,vis))
+                    return true;
+            }else if(vis[v] == 1)
+                    return true;
+        }
+        vis[u] = 0;
+        return false;
+    }
+  public:
+    // Function to detect cycle in a directed graph.
+    bool isCyclic(int V, vector<int> adj[]) {
+        // code here
+        vector<int> vis(V,-1);
+        for(int i=0;i<V;i++){
+            if(vis[i] == -1 && util(adj,i,vis))
+                return true;
+        }
+        return false;
+    }
+};
