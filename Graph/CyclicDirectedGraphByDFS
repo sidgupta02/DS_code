@@ -1,0 +1,31 @@
+private:
+    bool dfs(int i, vector<int> &vis, vector<int> &pvis, vector<int> adj[]) {
+        vis[i] = 1;
+        pvis[i] = 1;
+
+        // check for adjacent nodes
+        for (auto it : adj[i]) {
+            if (!vis[it]) {
+                if (dfs(it, vis, pvis, adj)) return true;
+            } else if (pvis[it]) return true;
+        }
+
+        // backtracking
+        pvis[i] = 0;
+        return false;
+    }
+
+public:
+    // Function to detect cycle in a directed graph.
+    bool isCyclic(int V, vector<int> adj[]) {
+        vector<int> vis(V, 0);
+        vector<int> pvis(V, 0);
+
+        for (int i = 0; i < V; i++) {
+            if (!vis[i]) {
+                if (dfs(i, vis, pvis, adj)) return true;
+            }
+        }
+        return false;
+    }
+};
