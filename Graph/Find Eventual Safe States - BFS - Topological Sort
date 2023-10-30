@@ -1,0 +1,50 @@
+class Solution {
+  public:
+    vector<int> eventualSafeNodes(int V, vector<int> adj[]) {
+       
+        vector<int> adjr[V];
+        vector<int> ind(V,0);
+        
+        for(int i=0;i<V;i++){
+            //i->it
+            //it->i
+            for(auto it:adj[i]){
+                adjr[it].push_back(i);
+                ind[i]++;
+            }
+        }
+        
+        queue<int> q;
+        
+        for(int i=0;i<V;i++){
+            if(ind[i]==0){ 
+                q.push(i);
+                
+            }
+        }
+        
+        vector<int>ans;
+        
+        while(!q.empty()){
+            int f=q.front();
+            ans.push_back(f);
+            q.pop();
+            
+            for(auto it:adjr[f]){
+                ind[it]--;
+                if(ind[it]==0) {
+                    q.push(it);
+                    
+                }
+            }
+        }
+        
+        if(ans.size()) sort(ans.begin(),ans.end());
+        return ans;
+        
+        
+    }
+    
+    //time = 
+    //space = 3n
+};
