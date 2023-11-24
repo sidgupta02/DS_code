@@ -1,0 +1,76 @@
+//{ Driver Code Starts
+// Initial Template for C++
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+// User function Template for C++
+
+class Solution {
+  public:
+    int shortestPath(vector<vector<int>> &grid, pair<int, int> s,
+                     pair<int, int> des) {
+        // code here
+        if(grid[des.first][des.second]==0) return -1;
+        if(s==des) return 0;
+        int n=grid.size();
+        int m=grid[0].size();
+        vector<vector<int>> dis(n,vector<int>(m,INT_MAX));
+        vector<int>drow={-1,0,1,0};
+        vector<int>dcol={0,1,0,-1};
+        
+        dis[s.first][s.second]=0;
+        queue<pair<int,pair<int,int>>> q;
+        q.push({0,s});
+        
+        while (!q.empty()) {
+    auto it = q.front();
+    q.pop();
+
+    int d = it.first;
+    int r = it.second.first;
+    int c = it.second.second;
+
+    for (int i = 0; i < 4; i++) {
+        int nrow = r + drow[i];
+        int ncol = c + dcol[i];
+        if (nrow >= 0 && nrow < n && ncol >= 0 && ncol < m && dis[nrow][ncol] > d + 1 && grid[nrow][ncol] == 1) {
+            q.push({d + 1, {nrow, ncol}});
+            dis[nrow][ncol] = d + 1;
+            if (nrow == des.first && ncol == des.second) return d + 1;
+        }
+    }
+}
+
+        return -1;
+    }
+};
+
+
+//{ Driver Code Starts.
+int main() {
+
+    int t;
+    cin >> t;
+    while (t--) {
+        int n, m;
+        cin >> n >> m;
+        vector<vector<int>> grid(n, vector<int>(m));
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                cin >> grid[i][j];
+            }
+        }
+
+        pair<int, int> source, destination;
+        cin >> source.first >> source.second;
+        cin >> destination.first >> destination.second;
+        Solution obj;
+        cout << obj.shortestPath(grid, source, destination) << endl;
+    }
+}
+
+// } Driver Code Ends
