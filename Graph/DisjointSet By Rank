@@ -1,0 +1,60 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+//DisjointSet by rank
+
+class DisjointSet{
+    vector<int> rank,parent;
+    public:
+    DisjointSet(int n){
+        rank.resize(n+1,1);
+        parent.resize(n+1);
+        for(int i=0;i<n+1;i++){
+            parent[i]=i;
+        }
+    }
+    int findRank(int node){
+        return rank[node];
+    }
+    int findParent(int node){
+        if(node==parent[node]) return node;
+        return parent[node]=findParent(parent[node]);
+    }
+    
+    void doUnion(int u,int v){
+        int par_u=findParent(u);
+        int par_v=findParent(v);
+        if(par_u == par_v) return;
+        if(rank[par_u]<rank[par_v]) parent[par_u]=par_v;
+        else if(rank[par_u]>rank[par_v]) parent[par_v]=par_u;
+        else {
+            parent[par_v]=par_u;
+            rank[par_u]++;
+        }
+        return;
+    }
+};
+
+int main()
+{
+    DisjointSet ds(7);
+    ds.doUnion(1,2);
+    ds.doUnion(2,3);
+    ds.doUnion(4,5);
+    ds.doUnion(6,7);
+    ds.doUnion(5,6);
+    if(ds.findParent(3)==ds.findParent(7)) cout<<"same\n";
+    else cout<<"not same\n";
+    ds.doUnion(3,7);
+    if(ds.findParent(3)==ds.findParent(7)) cout<<"same\n";
+    else cout<<"not same\n";
+    cout<<ds.findParent(1)<<ds.findRank(1)<<endl;
+    cout<<ds.findParent(2)<<endl;
+    cout<<ds.findParent(3)<<endl;
+    cout<<ds.findParent(4)<<endl;
+    cout<<ds.findParent(5)<<endl;
+    cout<<ds.findParent(6)<<endl;
+    cout<<ds.findParent(7)<<endl;
+
+    return 0;
+}
