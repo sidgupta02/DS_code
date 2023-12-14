@@ -99,3 +99,110 @@ int main() {
     return 0;
 }
 // } Driver Code Ends
+
+
+
+----------or----------------------
+
+//{ Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+// User function Template for C++
+
+class DisjointSet{
+    vector<int>parent,size;
+    public:
+    DisjointSet(int n){
+        //rank.resize(n+1,1);
+        parent.resize(n+1);
+        size.resize(n+1,1);
+        for(int i=0;i<n+1;i++){
+            parent[i]=i;
+        }
+    }
+    int findsize(int node){
+        return size[node];
+    }
+    int findParent(int node){
+        if(node==parent[node]) return node;
+        return parent[node]=findParent(parent[node]);
+    }
+    
+    /*void doUnion(int u,int v){
+        int par_u=findParent(u);
+        int par_v=findParent(v);
+        if(par_u == par_v) return;
+        if(rank[par_u]<rank[par_v]) parent[par_u]=par_v;
+        else if(rank[par_u]>rank[par_v]) parent[par_v]=par_u;
+        else {
+            parent[par_v]=par_u;
+            rank[par_u]++;
+        }
+        return;
+    }*/
+    
+    void doUnionBySize(int u,int v){
+        int par_u=findParent(u);
+        int par_v=findParent(v);
+        if(par_u == par_v) return ;
+        if(size[par_u] < size[par_v]) {
+            parent[par_u]=par_v;
+            size[par_v]+=size[par_u];
+        }
+        else{
+            parent[par_v]=par_u;
+            size[par_u]+=size[par_v];
+        }
+        return ;
+        
+    }
+};
+
+
+class Solution {
+  public:
+    int Solve(int n, vector<vector<int>>& edge) {
+        DisjointSet ds(n);
+        int extra=0;
+        for(auto it:edge){
+            if(ds.findParent(it[0])==ds.findParent(it[1])) extra++;
+            else ds.doUnionBySize(it[0],it[1]);
+        }
+        int ans=0;
+        for(int i=0;i<n;i++){
+            if(ds.findParent(i) == i) ans++;
+        }
+        if(extra >= ans-1) return ans-1;
+        return -1;
+    }
+};
+
+//{ Driver Code Starts.
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n, m;
+        cin >> n >> m;
+        vector<vector<int>> adj;
+
+        for (int i = 0; i < m; ++i) {
+            vector<int> temp;
+            for (int j = 0; j < 2; ++j) {
+                int x;
+                cin >> x;
+                temp.push_back(x);
+            }
+            adj.push_back(temp);
+        }
+
+        Solution Obj;
+        cout << Obj.Solve(n, adj) << "\n";
+    }
+    return 0;
+}
+// } Driver Code Ends
