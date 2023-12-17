@@ -1,0 +1,135 @@
+//{ Driver Code Starts
+// Initial Template for C++
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// } Driver Code Ends
+// User function Template for C++
+
+class DisjointSet{
+    vector<int> rank,parent,size;
+    public:
+    DisjointSet(int n){
+        rank.resize(n+1,1);
+        parent.resize(n+1);
+        size.resize(n+1,1);
+        for(int i=0;i<n+1;i++){
+            parent[i]=i;
+        }
+    }
+    int findsize(int node){
+        return size[node];
+    }
+    int findParent(int node){
+        if(node==parent[node]) return node;
+        return parent[node]=findParent(parent[node]);
+    }
+    
+    /*void doUnion(int u,int v){
+        int par_u=findParent(u);
+        int par_v=findParent(v);
+        if(par_u == par_v) return;
+        if(rank[par_u]<rank[par_v]) parent[par_u]=par_v;
+        else if(rank[par_u]>rank[par_v]) parent[par_v]=par_u;
+        else {
+            parent[par_v]=par_u;
+            rank[par_u]++;
+        }
+        return;
+    }*/
+    
+    void doUnionBySize(int u,int v){
+        int par_u=findParent(u);
+        int par_v=findParent(v);
+        if(par_u == par_v) return;
+        if(size[par_u] < size[par_v]) {
+            parent[par_u]=par_v;
+            size[par_v]+=size[par_u];
+        }
+        else{
+            parent[par_v]=par_u;
+            size[par_u]+=size[par_v];
+        }
+        return;
+        
+    }
+};
+
+class Solution {
+private:
+bool check(int adjr, int adjc, int n, int m){
+    return adjr >=0 && adjr <n && adjc>=0 && adjc<m;
+}
+  public:
+    vector<int> numOfIslands(int n, int m, vector<vector<int>> &operators) {
+        // code here
+        vector<int> ans;
+        int cnt=0;
+        
+        DisjointSet ds(n*m);
+        int vis[n][m];
+        memset(vis, 0 ,sizeof vis);
+        
+        int drow[]={-1,0,1,0};
+        int dcol[]={0,1,0,-1};
+        
+        for(auto it: operators){
+            int row=it[0];
+            int col=it[1];
+            if(vis[row][col]==1){
+                ans.push_back(cnt);
+                continue;
+            }
+            vis[row][col]=1;
+            cnt++;
+            
+            for(int i=0;i<4;i++){
+                int adjr=row+drow[i];
+                int adjc=col+dcol[i];
+                if(check(adjr,adjc, n,m)){
+                    if(vis[adjr][adjc] == 1){
+                        int node= row*m + col;
+                        int adjNode=adjr*m + adjc;
+                        if(ds.findParent(node) != ds.findParent(adjNode)){
+                            cnt--;
+                            ds.doUnionBySize(node,adjNode);
+                        }
+                    }
+                }
+            }
+            ans.push_back(cnt);
+            
+        }
+        return ans;
+        
+    }
+};
+
+
+//{ Driver Code Starts.
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n,m,k; cin>>n>>m>>k;
+        vector<vector<int>> a;
+        
+        for(int i=0; i<k; i++){
+            vector<int> temp;
+            for(int j=0; j<2; j++){
+                int x; cin>>x;
+                temp.push_back(x);
+            }
+            a.push_back(temp);
+        }
+    
+        Solution obj;
+        vector<int> res = obj.numOfIslands(n,m,a);
+        
+        for(auto x : res)cout<<x<<" ";
+        cout<<"\n";
+    }
+}
+
+// } Driver Code Ends
